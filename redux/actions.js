@@ -13,4 +13,8 @@ const JS_SUBMIT = (js) => ({
     js
 })
 
-export {HTML_SUBMIT, CSS_SUBMIT, JS_SUBMIT}
+const SAVE_TO_DATABASE = () => ({
+    type: 'SAVE_TO_DATABASE'
+})
+
+export {HTML_SUBMIT, CSS_SUBMIT, JS_SUBMIT, SAVE_TO_DATABASE}

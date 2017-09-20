@@ -1,23 +1,22 @@
 import store from '../redux/store'
+import {SAVE_TO_DATABASE, HTML_SUBMIT, CSS_SUBMIT, JS_SUBMIT} from '../redux/actions'
+import less from 'less'
+
 
 class Result extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            html: '',
-            js: '',
-            css: ''
-        }
     }
 
-    static unsubscribe = store.subscribe(() => console.log(store.getState()))
+    static unsubscribe = store.subscribe(() => {})
 
     componentDidMount() {
-        let stored = store.getState();
-        document
-            .getElementById('renderSc')
-            .innerHTML = `<style>${store.getState().css}</style>
-                      ${store.getState().html}<h3 style="color:aqua;"></h3>`;
+        let rendering;
+        less.render(`#renderSc{${store.getState().css}}`, function (e, output) {
+            rendering = `<style>${output.css}</style>${store.getState().html}`  
+        })        
+        document.getElementById('renderSc').innerHTML = rendering
+
         eval(store.getState().js)
     }
 
@@ -33,5 +32,7 @@ class Result extends React.Component {
         );
     }
 }
+
+Result.contextType
 
 export default Result

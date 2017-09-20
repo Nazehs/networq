@@ -5,12 +5,20 @@ class Html extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            content: this.props.initialContent
+            content: store.getState().html
         };
+    }
+
+    componentWillMount(){
+        store.dispatch(HTML_SUBMIT(this.state.content))
     }
 
     _updateState(content){
         this.setState({content})
+        store.dispatch(HTML_SUBMIT(this.state.content))
+    }
+
+    componentWillUnmount(){
         store.dispatch(HTML_SUBMIT(this.state.content))
     }
 

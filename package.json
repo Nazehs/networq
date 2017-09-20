@@ -14,6 +14,7 @@
   "dependencies": {
     "code-playground": "^0.1.2",
     "express": "^4.15.4",
+    "less": "^2.7.2",
     "next": "^3.2.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

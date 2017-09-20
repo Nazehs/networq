@@ -32,6 +32,8 @@ var _store = require('../redux/store');
 
 var _store2 = _interopRequireDefault(_store);
 
+var _actions = require('../redux/actions');
+
 var _Result = require('../components/Result');
 
 var _Result2 = _interopRequireDefault(_Result);
@@ -73,38 +75,59 @@ var Index = function (_React$Component) {
             this.setState({ type: type });
         }
     }, {
+        key: '_getInitialContentFromServer',
+        value: function _getInitialContentFromServer() {
+            // gets initial contents from the database and then dispatches it to the store
+            var initialContent = {
+                html: "<p>yo</p>",
+                css: 'p{\n  color:red;\n }',
+                js: 'console.log("Hello Gentleman");'
+            };
+            _store2.default.dispatch((0, _actions.HTML_SUBMIT)(initialContent.html));
+            _store2.default.dispatch((0, _actions.CSS_SUBMIT)(initialContent.css));
+            _store2.default.dispatch((0, _actions.JS_SUBMIT)(initialContent.js));
+            // mock initial content
+
+            initialContent;
+        }
+    }, {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this._getInitialContentFromServer();
+        }
+    }, {
         key: '_renderElement',
         value: function _renderElement() {
+
             switch (this.state.type) {
                 case 'result':
                     return _react2.default.createElement(_Result2.default, {
                         __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 21
+                            lineNumber: 44
                         }
                     });
-                    break;
                 case 'html':
-                    return _react2.default.createElement(_Html2.default, { initialContent: "<p>HTML Rendered</p>", __source: {
+                    return _react2.default.createElement(_Html2.default, {
+                        __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 23
+                            lineNumber: 46
                         }
                     });
-                    break;
                 case 'css':
-                    return _react2.default.createElement(_Css2.default, { initialContent: "p{color:green;}", __source: {
+                    return _react2.default.createElement(_Css2.default, {
+                        __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 25
+                            lineNumber: 48
                         }
                     });
-                    break;
                 default:
-                    return _react2.default.createElement(_JS2.default, { initialContent: "console.log('JavaScript rendered!')", __source: {
+                    return _react2.default.createElement(_JS2.default, {
+                        __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 27
+                            lineNumber: 50
                         }
                     });
-                    break;
 
             }
         }
@@ -116,33 +139,39 @@ var Index = function (_React$Component) {
             return _react2.default.createElement('div', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 35
+                    lineNumber: 57
                 }
             }, _react2.default.createElement('button', { onClick: function onClick() {
                     return _this2._changeTitle('result');
                 }, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 36
+                    lineNumber: 58
                 }
             }, 'Result'), _react2.default.createElement('button', { onClick: function onClick() {
                     return _this2._changeTitle('html');
                 }, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 37
+                    lineNumber: 59
                 }
             }, 'HTML'), _react2.default.createElement('button', { onClick: function onClick() {
                     return _this2._changeTitle('css');
                 }, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 38
+                    lineNumber: 60
                 }
             }, 'CSS'), _react2.default.createElement('button', { onClick: function onClick() {
                     return _this2._changeTitle('js');
                 }, __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 39
+                    lineNumber: 61
                 }
-            }, 'JavaScript'), this._renderElement());
+            }, 'JavaScript'), this._renderElement(), _react2.default.createElement('button', { onClick: function onClick() {
+                    return _store2.default.dispatch((0, _actions.SAVE_TO_DATABASE)());
+                }, __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 63
+                }
+            }, 'Publish your Snippet!'));
         }
     }]);
 
@@ -150,4 +179,4 @@ var Index = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Index;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzXFxpbmRleC5qcyJdLCJuYW1lcyI6WyJzdG9yZSIsIlJlc3VsdCIsIkNzcyIsIkpzIiwiSHRtbCIsIkluZGV4Iiwic3RhdGUiLCJ0eXBlIiwic2V0U3RhdGUiLCJfY2hhbmdlVGl0bGUiLCJfcmVuZGVyRWxlbWVudCIsIlJlYWN0IiwiQ29tcG9uZW50Il0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxBQUFPOzs7O0FBRVAsQUFBTzs7OztBQUNQLEFBQU87Ozs7QUFDUCxBQUFPOzs7O0FBQ1AsQUFBTzs7Ozs7Ozs7O0ksQUFFRDttQ0FDRjs7cUJBQWE7NENBQUE7O2tJQUVUOztjQUFBLEFBQUs7a0JBRkksQUFFVCxBQUFhLEFBQ0g7QUFERyxBQUNUO2VBRVA7Ozs7O3FDQUNZLEEsTUFBSyxBQUNkO2lCQUFBLEFBQUssU0FBUyxFQUFDLE1BQWYsQUFBYyxBQUNqQjs7Ozt5Q0FFZSxBQUNaO29CQUFRLEtBQUEsQUFBSyxNQUFiLEFBQW1CLEFBQ2Y7cUJBQUEsQUFBSyxBQUFVOzJDQUFRLEFBQUM7O3NDQUFEO3dDQUFSLEFBQVEsQUFDUDtBQURPO0FBQUEscUJBQUE7QUFFdkI7cUJBQUEsQUFBSyxBQUFROzJDQUFRLEFBQUMsZ0NBQUssZ0JBQU4sQUFBc0I7c0NBQXRCO3dDQUFSLEFBQVEsQUFDVDtBQURTO3FCQUFBO0FBRXJCO3FCQUFBLEFBQUssQUFBTzsyQ0FBUSxBQUFDLCtCQUFJLGdCQUFMLEFBQXFCO3NDQUFyQjt3Q0FBUixBQUFRLEFBQ1I7QUFEUTtxQkFBQTtBQUVwQjtBQUFTOzJDQUFRLEFBQUMsOEJBQUcsZ0JBQUosQUFBb0I7c0NBQXBCO3dDQUFSLEFBQVEsQUFDTDtBQURLO3FCQUFBO0FBUHJCLEFBV0g7Ozs7OztpQ0FFTzt5QkFDSjs7bUNBQ0ksY0FBQTs7OEJBQUE7Z0NBQUEsQUFDSTtBQURKO0FBQUEsYUFBQSxrQkFDSSxjQUFBLFlBQVEsU0FBUyxtQkFBQTsyQkFBSSxPQUFBLEFBQUssYUFBVCxBQUFJLEFBQWtCO0FBQXZDOzhCQUFBO2dDQUFBO0FBQUE7ZUFESixBQUNJLEFBQ0EsMkJBQUEsY0FBQSxZQUFRLFNBQVMsbUJBQUE7MkJBQUksT0FBQSxBQUFLLGFBQVQsQUFBSSxBQUFrQjtBQUF2Qzs4QkFBQTtnQ0FBQTtBQUFBO2VBRkosQUFFSSxBQUNBLHlCQUFBLGNBQUEsWUFBUSxTQUFTLG1CQUFBOzJCQUFJLE9BQUEsQUFBSyxhQUFULEFBQUksQUFBa0I7QUFBdkM7OEJBQUE7Z0NBQUE7QUFBQTtlQUhKLEFBR0ksQUFDQSx3QkFBQSxjQUFBLFlBQVEsU0FBUyxtQkFBQTsyQkFBSSxPQUFBLEFBQUssYUFBVCxBQUFJLEFBQWtCO0FBQXZDOzhCQUFBO2dDQUFBO0FBQUE7ZUFKSixBQUlJLEFBQ0Msb0JBTlQsQUFDSSxBQUtLLEFBQUssQUFHakI7Ozs7O0VBbkNlLGdCQUFNLEEsQUF1QzFCOztrQkFBQSxBQUFlIiwiZmlsZSI6ImluZGV4LmpzP2VudHJ5Iiwic291cmNlUm9vdCI6IkU6L1Byb2plY3RzIGFuZCBJZGVhcy9TdGFydHZlcnNpdHkvbmV0d29ycSJ9
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzXFxpbmRleC5qcyJdLCJuYW1lcyI6WyJzdG9yZSIsIlNBVkVfVE9fREFUQUJBU0UiLCJIVE1MX1NVQk1JVCIsIkNTU19TVUJNSVQiLCJKU19TVUJNSVQiLCJSZXN1bHQiLCJDc3MiLCJKcyIsIkh0bWwiLCJJbmRleCIsInN0YXRlIiwidHlwZSIsInNldFN0YXRlIiwiaW5pdGlhbENvbnRlbnQiLCJodG1sIiwiY3NzIiwianMiLCJkaXNwYXRjaCIsIl9nZXRJbml0aWFsQ29udGVudEZyb21TZXJ2ZXIiLCJfY2hhbmdlVGl0bGUiLCJfcmVuZGVyRWxlbWVudCIsIlJlYWN0IiwiQ29tcG9uZW50Il0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxBQUFPOzs7O0FBQ1AsQUFBUSxBQUFrQixBQUFhLEFBQVk7O0FBRW5ELEFBQU87Ozs7QUFDUCxBQUFPOzs7O0FBQ1AsQUFBTzs7OztBQUNQLEFBQU87Ozs7Ozs7OztJQUVELEE7bUNBQ0Y7O3FCQUFjOzRDQUFBOztrSUFFVjs7Y0FBQSxBQUFLO2tCQUZLLEFBRVYsQUFBYSxBQUNIO0FBREcsQUFDVDtlQUVQOzs7OztxQyxBQUVZLE1BQU0sQUFDZjtpQkFBQSxBQUFLLFNBQVMsRUFBQyxNQUFmLEFBQWMsQUFDakI7Ozs7dURBRThCLEFBQzNCO0FBQ0E7Z0JBQUk7c0JBQWlCLEFBQ1gsQUFDTjtxQkFGaUIsQUFHakI7b0JBSEosQUFBcUIsQUFLckI7QUFMcUIsQUFDakI7NEJBSUosQUFBTSxTQUFTLDBCQUFZLGVBQTNCLEFBQWUsQUFBMkIsQUFDMUM7NEJBQUEsQUFBTSxTQUFTLHlCQUFXLGVBQTFCLEFBQWUsQUFBMEIsQUFDekM7NEJBQUEsQUFBTSxTQUFTLHdCQUFVLGVBQXpCLEFBQWUsQUFBeUIsQUFDeEM7QUFFQTs7QUFDSDs7Ozs2Q0FFb0IsQUFDakI7aUJBQUEsQUFBSyxBQUNSOzs7O3lDQUVnQixBQUViOztvQkFBUSxLQUFBLEFBQUssTUFBYixBQUFtQixBQUNmO3FCQUFBLEFBQUssQUFDRDsyQ0FBUSxBQUFDOztzQ0FBRDt3Q0FBUixBQUFRLEFBQ1o7QUFEWTtBQUFBLHFCQUFBO3FCQUNaLEFBQUssQUFDRDsyQ0FBUSxBQUFDOztzQ0FBRDt3Q0FBUixBQUFRLEFBQ1o7QUFEWTtBQUFBLHFCQUFBO3FCQUNaLEFBQUssQUFDRDsyQ0FBUSxBQUFDOztzQ0FBRDt3Q0FBUixBQUFRLEFBQ1o7QUFEWTtBQUFBLHFCQUFBO0FBRVI7MkNBQVEsQUFBQzs7c0NBQUQ7d0NBUmhCLEFBUVEsQUFBUSxBQUduQjtBQUhtQjtBQUFBLHFCQUFBOzs7Ozs7aUNBS1g7eUJBQ0w7O21DQUNJLGNBQUE7OzhCQUFBO2dDQUFBLEFBQ0k7QUFESjtBQUFBLGFBQUEsa0JBQ0ksY0FBQSxZQUFRLFNBQVMsbUJBQUE7MkJBQU0sT0FBQSxBQUFLLGFBQVgsQUFBTSxBQUFrQjtBQUF6Qzs4QkFBQTtnQ0FBQTtBQUFBO2VBREosQUFDSSxBQUNBLDJCQUFBLGNBQUEsWUFBUSxTQUFTLG1CQUFBOzJCQUFNLE9BQUEsQUFBSyxhQUFYLEFBQU0sQUFBa0I7QUFBekM7OEJBQUE7Z0NBQUE7QUFBQTtlQUZKLEFBRUksQUFDQSx5QkFBQSxjQUFBLFlBQVEsU0FBUyxtQkFBQTsyQkFBTSxPQUFBLEFBQUssYUFBWCxBQUFNLEFBQWtCO0FBQXpDOzhCQUFBO2dDQUFBO0FBQUE7ZUFISixBQUdJLEFBQ0Esd0JBQUEsY0FBQSxZQUFRLFNBQVMsbUJBQUE7MkJBQU0sT0FBQSxBQUFLLGFBQVgsQUFBTSxBQUFrQjtBQUF6Qzs4QkFBQTtnQ0FBQTtBQUFBO2VBSkosQUFJSSxBQUNDLG9CQUxMLEFBS0ssQUFBSyxBQUNOLGtDQUFBLGNBQUEsWUFBUSxTQUFXLG1CQUFBOzJCQUFNLGdCQUFBLEFBQU0sU0FBWixBQUFNLEFBQWU7QUFBeEM7OEJBQUE7Z0NBQUE7QUFBQTtlQVBSLEFBQ0ksQUFNSSxBQUtYOzs7OztFQTNEZSxnQkFBTSxBLEFBK0QxQjs7a0JBQUEsQUFBZSIsImZpbGUiOiJpbmRleC5qcz9lbnRyeSIsInNvdXJjZVJvb3QiOiJFOi9Qcm9qZWN0cyBhbmQgSWRlYXMvU3RhcnR2ZXJzaXR5L25ldHdvcnEifQ==

@@ -5,12 +5,20 @@ class Css extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            content: this.props.initialContent
+            content: store.getState().css
         };
     }
 
-    _updateState(content){
+    componentWillMount(){
+        store.dispatch(CSS_SUBMIT(this.state.content))
+    }
+
+    _updateState(content){        
         this.setState({content})
+        store.dispatch(CSS_SUBMIT(this.state.content))        
+    }
+
+    componentWillUnmount(){
         store.dispatch(CSS_SUBMIT(this.state.content))
     }
 
