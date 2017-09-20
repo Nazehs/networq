@@ -11,7 +11,7 @@ const UserSchema = new Schema({
         email: { type: String, required: true, trim: true },
         created_at: { type: Date, default: Date.now },
         image: { type: String, match: regExpURL },
-        description: { type: String, trim: true, default: "¡Mi sueño es aparecer en algun top de Strawbery!" }
+        description: { type: String, trim: true, default: "Startversity is my top one resource to learn programming" }
     },
     network: {
         contacts: { type: [Schema.Types.ObjectId], ref: 'User' },
