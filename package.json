@@ -12,8 +12,11 @@
   "author": "Startversity",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "code-playground": "^0.1.2",
     "express": "^4.15.4",
+    "mongo-sanitize": "^1.0.0",
+    "mongoose": "^4.11.12",
     "next": "^3.2.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
